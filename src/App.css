@@ -46,7 +46,7 @@ table {
 }
 
 th, td {
-  border: 1px solid hotpink;
+  border: 3px solid rgb(45, 123, 187);
   padding: 8px;
   text-align: left;
 }
@@ -58,5 +58,8 @@ th {
 /* Optional: Add hover effect on table rows */
 tbody tr:hover {
   background-color: lightgreen;
+}
+th:nth-child(even),td:nth-child(even) {
+  background-color: #D6EEEE;
 }
 

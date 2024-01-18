@@ -12,7 +12,9 @@ function Form() {
     firstName: "",
     lastName: "",
     age: "",
-    designation: ""
+    designation: "",
+    gender: "Male", // Default to "Male"
+    email: ""
   });
 const[formVisibility,setFormVisibility]=useState(false);
   useEffect(() => {
@@ -45,14 +47,18 @@ const[formVisibility,setFormVisibility]=useState(false);
       const lastId = parseInt(localStorage.getItem("lastid"));
       const newId = lastId + 1;
   
-    if (newUser.firstName && newUser.lastName) {
+    if (newUser.firstName && newUser.lastName &&
+      newUser.gender &&
+      newUser.email) {
       setUsers((prevUsers) => [...prevUsers, { ...newUser, id: newId }]);
       localStorage.setItem("lastid", newId);
       setNewUser({  id: "",
       firstName: "",
       lastName: "",
       age: "",
-      designation: ""});
+      designation: "",
+      gender: "Male",
+      email: ""});
     }
   };
 
@@ -90,7 +96,13 @@ if(formVisibility){
     return (
         <div>
     
-        <Input newUser={newUser} handleUpdateUser={handleUpdateUser} handleSubmit={handleSubmit} handleOnchange={handleOnchange} editingUser={editingUser}/>
+    <Input
+          newUser={newUser}
+          handleUpdateUser={handleUpdateUser}
+          handleSubmit={handleSubmit}
+          handleOnchange={handleOnchange}
+          editingUser={editingUser}
+        />
     
           <Table user={users} handleEditUser={handleEditUser} handleDeleteUser={handleDeleteUser} />
         </div>
