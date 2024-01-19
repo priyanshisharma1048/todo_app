@@ -15,7 +15,7 @@ function Table(props) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Age</th>
-              <th>Designation</th>
+              <th>D</th>
               <th>Gender</th>
               <th>E-mail</th>
               <th>Action</th>
