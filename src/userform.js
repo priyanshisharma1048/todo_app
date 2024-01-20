@@ -17,6 +17,8 @@ function Form() {
     email: ""
   });
 const[formVisibility,setFormVisibility]=useState(false);
+const[alreadyexist,setalreadyexist]=useState(false);
+
   useEffect(() => {
     const storedUsers = localStorage.getItem('data');
     if (storedUsers) {
@@ -40,6 +42,15 @@ const[formVisibility,setFormVisibility]=useState(false);
 //   }
 
   const handleSubmit = () => {
+    const isUserAlreadyExist = users.some(user => user.email === newUser.email);
+
+if (isUserAlreadyExist) {
+  setalreadyexist(true);
+  alert("Already exist");
+}
+  
+  else{
+    
     if (localStorage.getItem("lastid") === null) {
         localStorage.setItem("lastid", "0");
       }
@@ -60,8 +71,9 @@ const[formVisibility,setFormVisibility]=useState(false);
       gender: "Male",
       email: ""});
     }
-  };
-
+  
+  }
+  }
   const handleEditUser = (user) => {
     setEditingUser(user);
     setNewUser(user);
@@ -69,19 +81,29 @@ const[formVisibility,setFormVisibility]=useState(false);
 
   const handleUpdateUser = () => {
     if (newUser.firstName && newUser.lastName) {
-        debugger
-      setUsers((prevUsers) =>
-        prevUsers.map((user) => (user.id === editingUser.id ? newUser : user))
-      );
-      setEditingUser(null);
-      setNewUser({ id: "",
-      firstName: "",
-      lastName: "",
-      age: "",
-      designation: "" });
+      const isUserAlreadyExist = users.some((user) => user.email === newUser.email && user.id !== editingUser.id);
+  
+      if (isUserAlreadyExist) {
+        setalreadyexist(true);
+        alert("Email already exists for another user");
+      } else {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) => (user.id === editingUser.id ? newUser : user))
+        );
+        setEditingUser(null);
+        setNewUser({
+          id: "",
+          firstName: "",
+          lastName: "",
+          age: "",
+          designation: "",
+          gender: "Male",
+          email: "",
+        });
+      }
     }
   };
-
+  
   const handleDeleteUser = (userId) => {
     setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
   };
